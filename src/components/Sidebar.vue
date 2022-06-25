@@ -34,7 +34,7 @@ export default {
   components: { TableOfContents },
   data() {
     return {
-      bookCover: './assets/BookCover.jpg',
+      bookCover: '/assets/BookCover.jpg',
     };
   },
 };
