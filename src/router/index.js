@@ -1,7 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
+import TableOfContents from '@/components/TableOfContents.vue';
+
+const parseProps = (r) => ({ id: parseInt(r.params.id, 10) });
 
 const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+  },
+  {
+    path: '/article/:id',
+    name: 'articles',
+    props: parseProps,
+    component: () => import(/* webpackChunkName: "core" */ '../views/Articles.vue'),
+  },
+  {
+    path: '/edit/article/:id',
+    name: 'edit-article',
+    props: parseProps,
+    component: () => import(/* webpackChunkName: "core" */ '../views/EditArticle.vue'),
+  },
+  {
+    path: '/articles',
+    name: 'toc',
+    props: { displayAll: true },
+    component: TableOfContents,
+  },
+  {
+    path: '/category/:categoryName',
+    name: 'category',
+    props: true,
+    component: () => import(/* webpackChunkName: "core" */ '../views/Category.vue'),
+  },
   {
     path: '/',
     name: 'home',

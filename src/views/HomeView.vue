@@ -1,18 +1,47 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Alerts/>
+    <div v-for="article in articles" :key="article.id">
+      <Article :article="article"></Article>
+    </div>
+    <p class="lead text-center">
+      <router-link class="btn btn-outline-primary btn-lg" :to="{ name: 'toc' }">Full list of
+        articles
+      </router-link>
+    </p>
   </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mapState, mapActions } from 'vuex';
+import Article from '../components/Article.vue';
+import Alerts from '../components/Alerts.vue';
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld,
+  name: 'Home',
+  components: { Alerts, Article },
+  data() {
+    return {
+      message: '',
+    };
+  },
+  async created() {
+    await this.loadArticles();
+  },
+  methods: {
+    ...mapActions(['getArticlesAction']),
+    async loadArticles() {
+      await this.getArticlesAction();
+      document.title = 'SpankinFresh Farmers Market — Welcome!';
+    },
+  },
+  computed: {
+    ...mapState(['articles']),
   },
 };
 </script>
+
+<style scoped>
+
+</style>
