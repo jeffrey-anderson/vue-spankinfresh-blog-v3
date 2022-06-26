@@ -4,6 +4,7 @@ import { dataService } from '@/shared';
 export default createStore({
   state: {
     articles: [],
+    authors: [],
     toc: [],
     categories: [],
     flashMessages: [],
@@ -32,6 +33,9 @@ export default createStore({
     },
     getCategories(state, categories) {
       state.categories = categories;
+    },
+    getAuthors(state, authors) {
+      state.authors = authors;
     },
     getArticles(state, articles) {
       state.articles = articles;
@@ -70,6 +74,12 @@ export default createStore({
       if (state.toc.length === 0) {
         const toc = await dataService.getArticleList();
         commit('getTOC', toc);
+      }
+    },
+    async getAuthorsAction({ commit, state }) {
+      if (state.authors.length === 0) {
+        const authors = await dataService.getAuthors();
+        commit('getAuthors', authors);
       }
     },
     async getCategoriesAction({ commit }) {
