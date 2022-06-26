@@ -31,15 +31,17 @@
               <i class="fas fa-folder"></i> Browse by Category
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <span v-for="category in categories" :key="category.id">
-                                <router-link class="dropdown-item"
-                                             :to="{ name: 'category', params: { categoryName: category.categoryName } }">{{ category.categoryName }}</router-link>
-                            </span>
+              <span v-for="category in categories" :key="category.id">
+                  <router-link class="dropdown-item"
+                               :to="{ name: 'category', params: { categoryName: category.categoryName } }">{{ category.categoryName }}</router-link>
+              </span>
             </div>
           </li>
 
         </ul>
       </div>
+      <button class="btn btn-primary my-2 my-sm-0" v-if='authState && authState.isAuthenticated' v-on:click='logout' id='logout-button'><i class="fas fa-sign-out-alt"></i> Logout </button>
+      <button class="btn btn-primary my-2 my-sm-0" v-else v-on:click='login' id='login-button'><i class="fas fa-sign-in-alt"></i> Login </button>
     </nav>
 
   </div>
@@ -55,6 +57,12 @@ export default {
   },
   methods: {
     ...mapActions(['getCategoriesAction']),
+    async login() {
+      await this.$auth.signInWithRedirect();
+    },
+    async logout() {
+      await this.$auth.signOut();
+    },
     async loadCategories() {
       await this.getCategoriesAction();
     },
@@ -64,7 +72,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .max-width: 55px;
-</style>

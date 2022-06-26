@@ -98,6 +98,7 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import { fancyDate } from '@/shared/filters';
+import store from '../store';
 
 const md = require('markdown-it')({
   html: true,
@@ -137,10 +138,12 @@ export default {
     },
     saveChanges() {
       if (this.isValid()) {
+        const post = this.article;
         if (this.article.id === 0) {
-          this.createArticleAction(this.article);
+          store.dispatch('createArticleAction', { article: post, auth: this.$auth.getAccessToken() });
+          // this.createArticleAction(this.article, this.$auth.getAccessToken());
         } else {
-          this.updateArticleAction(this.article);
+          this.updateArticleAction({ article: post, auth: this.$auth.getAccessToken() });
         }
         this.$router.push({ name: 'toc' });
       }

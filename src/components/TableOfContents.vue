@@ -111,7 +111,7 @@ export default {
     async deleteArticle() {
       this.closeModal();
       if (this.articleToDelete) {
-        await this.deleteArticleAction(this.articleToDelete.id);
+        await this.deleteArticleAction({ id: this.articleToDelete.id, auth: this.$auth.getAccessToken() });
       }
       /** The loadArticles is not needed,
        *  but it's nice to query the database

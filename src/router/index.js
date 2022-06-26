@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { navigationGuard, LoginCallback } from '@okta/okta-vue';
 import HomeView from '@/views/HomeView.vue';
 import TableOfContents from '@/components/TableOfContents.vue';
 import PageNotFound from '@/views/PageNotFound.vue';
@@ -11,6 +12,7 @@ const routes = [
     name: 'home',
     component: HomeView,
   },
+  { path: '/login/callback', component: LoginCallback },
   {
     path: '/article/:id',
     name: 'articles',
@@ -20,6 +22,9 @@ const routes = [
   {
     path: '/edit/article/:id',
     name: 'edit-article',
+    meta: {
+      requiresAuth: true,
+    },
     props: parseProps,
     component: () => import(/* webpackChunkName: "core" */ '../views/EditArticle.vue'),
   },
@@ -59,5 +64,8 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+// Due to navigation guards mixin issue in vue-router-next, navigation guard logic need to be added manually
+router.beforeEach(navigationGuard);
 
 export default router;

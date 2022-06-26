@@ -112,9 +112,14 @@ export const getArticleList = async function () {
   }
 };
 
-const deleteArticle = async function (id) {
+const deleteArticle = async function (id, accessToken) {
   try {
-    const response = await axios.delete(`${API}/articles/${id}`);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const response = await axios.delete(`${API}/articles/${id}`, config);
     return {
       statusCode: response.status,
       statusMessage: response.statusText,
@@ -125,9 +130,14 @@ const deleteArticle = async function (id) {
   }
 };
 
-const updateArticle = async function (article) {
+const updateArticle = async function (article, accessToken) {
   try {
-    const response = await axios.put(`${API}/articles/${article.id}`, article);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const response = await axios.put(`${API}/articles/${article.id}`, article, config);
     return {
       statusCode: response.status,
       statusMessage: response.statusText,
@@ -138,9 +148,14 @@ const updateArticle = async function (article) {
   }
 };
 
-const createArticle = async function (article) {
+const createArticle = async function (article, accessToken) {
   try {
-    const response = await axios.post(`${API}/articles`, article);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const response = await axios.post(`${API}/articles`, article, config);
     return {
       statusCode: response.status,
       statusMessage: response.statusText,

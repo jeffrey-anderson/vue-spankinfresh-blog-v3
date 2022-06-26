@@ -92,30 +92,31 @@ export default createStore({
     setFlashMessageAction({ commit }, message) {
       commit('addFlashMessage', message);
     },
-    async deleteArticleAction({ commit }, id) {
+    async deleteArticleAction({ commit }, request) {
       commit('addFlashMessage', 'Saving Changes .....');
-      const statusData = await dataService.deleteArticle(id);
+      const statusData = await dataService.deleteArticle(request.id, request.auth);
       if (statusData.statusCode === 204) {
         commit('addFlashMessage', 'Article deleted');
-        commit('deleteArticle', id);
+        commit('deleteArticle', request.id);
       } else {
         commit('addFlashMessage', `Delete failed: ${statusData.statusCode} - ${statusData.statusMessage}`);
       }
     },
-    async updateArticleAction({ commit }, article) {
+    async updateArticleAction({ commit }, request) {
       commit('addFlashMessage', 'Saving Changes .....');
-      const statusData = await dataService.updateArticle(article);
+      const statusData = await dataService.updateArticle(request.article, request.auth);
       if (statusData.statusCode === 204) {
         commit('addFlashMessage', 'Article updated');
-        commit('updateToc', article);
-        commit('updateArticles', article);
+        commit('updateToc', request.article);
+        commit('updateArticles', request.article);
       } else {
         commit('addFlashMessage', `Update failed: ${statusData.statusCode} - ${statusData.statusMessage}`);
       }
     },
-    async createArticleAction({ commit }, article) {
+    async createArticleAction({ commit }, request) {
       commit('addFlashMessage', 'Saving Changes .....');
-      const statusData = await dataService.createArticle(article);
+      console.log(request);
+      const statusData = await dataService.createArticle(request.article, request.auth);
       if (statusData.statusCode === 200 || statusData.statusCode === 201) {
         commit('addFlashMessage', 'New article created');
         commit('addArticle', statusData.data);

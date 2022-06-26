@@ -1,12 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import Footer from '@/components/Footer.vue';
 
-describe('HelloWorld.vue', () => {
+describe('Footer.vue', () => {
   it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
+    const msg = `© ${new Date().getFullYear()} by SpankinFresh Farmers Market. All rights reserved.`;
+    const wrapper = shallowMount(Footer, {});
     expect(wrapper.text()).toMatch(msg);
   });
 });
