@@ -9,7 +9,7 @@
           <p>All our favorite SpankinFresh recipe ideas in one book! Order yours today.</p>
           <div class="text-center">
             <a href="https://leanpub.com/springwebessentials">
-              <img :src="bookCover" alt="Spring Web Essentials book cover" />
+              <img :src="bookCover" class="img-fluid" alt="Spring Web Essentials book cover" />
             </a>
           </div>
           <a href="https://leanpub.com/springwebessentials"
@@ -41,9 +41,5 @@ export default {
 </script>
 
 <style scoped>
-
-img {
-  max-width: 100%;
-}
 
 </style>
