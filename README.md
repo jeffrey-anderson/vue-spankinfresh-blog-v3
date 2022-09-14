@@ -49,6 +49,6 @@ docker buildx inspect --bootstrap
 
 ### Build and push
 ```
-vue-cli-service build --mode k8s
+./node_modules/.bin/vue-cli-service build --mode k8s
 docker buildx build --push --platform linux/arm64,linux/amd64 --tag <user>/swe-vue-k8s:<tag> .
 ```
